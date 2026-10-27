@@ -22,20 +22,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="assets/brand.css">
 <style>
 *{box-sizing:border-box}body{margin:0;line-height:1.6;font-size:16px}
-.w{max-width:960px;margin:0 auto;padding:44px 16px 64px}
+.w{max-width:1120px;margin:0 auto;padding:44px 16px 64px}
 .eyebrow{display:inline-block;font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,250,246,.7);border:1px solid rgba(36,78,84,.16);border-radius:999px;padding:4px 12px;margin-bottom:16px}
 h1{font-size:clamp(30px,5vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600;margin:0 0 12px}
 .lede{font-size:18px;font-weight:300;max-width:620px;margin:0 0 36px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:0 0 40px;padding:0;list-style:none}
-.tool{display:flex;flex-direction:column;background:rgba(251,250,246,.92);border:1px solid rgba(36,78,84,.12);border-radius:18px;padding:22px;text-decoration:none;color:#244E54;transition:transform .15s,border-color .15s,box-shadow .15s}
-a.tool:hover{transform:translateY(-2px);border-color:#244E54;box-shadow:0 8px 24px rgba(36,78,84,.10)}
-.tool .kind{font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
-.tool h2{font-size:21px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
-.tool p{margin:0 0 16px;font-weight:300;font-size:15px}
-.tool .go{margin-top:auto;font-weight:500;font-size:14.5px}
-.tool .go::after{content:" →"}
-.tool.soon{border-style:dashed;background:rgba(251,250,246,.55)}
-.tool.soon .go::after{content:""}
+.rows{display:flex;flex-direction:column;gap:20px;margin:0 0 40px;padding:0;list-style:none}
+/* One row per tool: details left, video right; stacks on narrow screens */
+.tool{display:grid;grid-template-columns:minmax(0,9fr) minmax(0,14fr);gap:32px;align-items:center;background:rgba(251,250,246,.92);border:1px solid rgba(36,78,84,.12);border-radius:24px;padding:28px;color:#244E54}
+.tool .kind{display:block;font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.tool h2{font-size:clamp(24px,3vw,30px);font-weight:600;margin:0 0 10px;letter-spacing:-.02em;line-height:1.15}
+.tool .desc{margin:0 0 18px;font-weight:300;font-size:16px}
+.steps{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px}
+.steps li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;font-size:14.5px;font-weight:300;line-height:1.45}
+.steps li::before{content:attr(data-n);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#244E54;color:#FBFAF6;font-size:12px;font-weight:600;margin-top:1px}
+.steps li.r::before{background:#F27A7D;color:#244E54}
+.steps b{font-weight:600}
+.meta{font-size:13.5px;font-weight:300;margin:0 0 20px;padding-left:10px;border-left:2px solid #F27A7D}
+.cta{display:flex;flex-wrap:wrap;gap:8px}
+.cta a{text-decoration:none;border:1px solid rgba(36,78,84,.22);background:rgba(251,250,246,.9);color:#244E54;padding:10px 15px;border-radius:999px;font-weight:500;font-size:14px;white-space:nowrap}
+.cta a:hover{background:#FBFAF6;border-color:#244E54}
+.cta a.p{background:#244E54;color:#FBFAF6;border-color:#244E54}
+.cta a.p:hover{background:#1b3d42}
+.media{margin:0;border-radius:16px;overflow:hidden;border:1px solid rgba(36,78,84,.16);box-shadow:0 14px 36px rgba(36,78,84,.14);background:#FBFAF6;position:relative}
+.media .chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(36,78,84,.10);background:#F3F1EA}
+.media .chrome i{width:9px;height:9px;border-radius:50%;background:rgba(36,78,84,.18);display:block}
+.media .chrome span{margin-left:8px;font-size:11.5px;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.media video{display:block;width:100%;height:auto;aspect-ratio:960/640}
+.media figcaption{position:absolute;right:10px;bottom:10px;font-size:11.5px;background:rgba(36,78,84,.82);color:#FBFAF6;padding:4px 10px;border-radius:999px}
+.soon{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;border:1px dashed rgba(36,78,84,.3);background:rgba(251,250,246,.55);border-radius:24px;padding:22px 28px;color:#244E54}
+.soon h2{font-size:19px;font-weight:600;margin:0 0 2px}
+.soon p{margin:0;font-weight:300;font-size:15px}
+@media (max-width:860px){.tool{grid-template-columns:1fr;gap:22px;padding:20px}.tool .media{order:-1}.soon{padding:20px}}
 footer{font-size:13.5px;opacity:.8;border-top:1px solid rgba(36,78,84,.16);padding-top:16px}
 footer a{color:inherit}
 </style>
@@ -55,20 +72,39 @@ footer a{color:inherit}
   <h1>Tools</h1>
   <p class="lede">Things I've built to find the signal faster, so more of the time goes into the conversation. Each one is open source and comes with a live demo on fictional data.</p>
 
-  <!-- To add a tool: copy one <li>, point href at /<repo-name>/ (any repo under potentiate-bio with Pages turned on). -->
-  <ul class="grid" data-track-area="tools">
-    <li><a class="tool" href="/thoughtful-outreach/" data-track="cta_click" data-track-name="open_thoughtful_outreach">
-      <span class="kind">AI skill · Business development</span>
-      <h2>Thoughtful outreach</h2>
-      <p>Score a conference attendee list against your ideal customer profile, research only the people worth meeting, and sharpen your ICP from your own overrides. Research only: you write the outreach.</p>
-      <span class="go">Open the tool</span>
-    </a></li>
-    <li><div class="tool soon">
-      <span class="kind">Coming next</span>
-      <h2>More on the way</h2>
-      <p>New tools land here as they're released. Subscribe to hear when the next one is out.</p>
-      <span class="go"><a href="https://potentiate.beehiiv.com/subscribe?utm_source=tools.potentiate.bio&amp;utm_medium=website&amp;utm_campaign=subscribe_button" data-track="subscribe_click" data-track-name="subscribe_tools_card" style="color:inherit">Subscribe →</a></span>
-    </div></li>
+  <!-- To add a tool: copy one <li class="tool"> row, point the links at /<repo-name>/ (any repo under potentiate-bio
+       with Pages turned on), and put its walkthrough video + poster in assets/<repo-name>/. -->
+  <ul class="rows" data-track-area="tools">
+    <li class="tool">
+      <div>
+        <span class="kind">AI skill · Business development</span>
+        <h2>Thoughtful outreach</h2>
+        <p class="desc">Turn a conference attendee list into the twenty people worth meeting, with a reason for every call. It does the research; you write the outreach.</p>
+        <ol class="steps">
+          <li data-n="1"><span><b>Score</b> every name against your ICP, with a tier, signals and a one-line why.</span></li>
+          <li data-n="2"><span><b>Review and pick</b> in an interactive map. Override anything, with a reason.</span></li>
+          <li data-n="3"><span><b>Research</b> only your shortlist. "Unsure" is an allowed answer.</span></li>
+          <li data-n="4" class="r"><span><b>Refine</b> your ICP from your overrides, for one event or for good.</span></li>
+        </ol>
+        <p class="meta">Free and open source. Works best in Claude; also runs in ChatGPT, Gemini and other AI tools.</p>
+        <div class="cta">
+          <a class="p" href="/thoughtful-outreach/target-map.html" data-track="cta_click" data-track-name="try_thoughtful_outreach">Try the demo</a>
+          <a href="/thoughtful-outreach/" data-track="cta_click" data-track-name="open_thoughtful_outreach">How it works</a>
+          <a href="https://github.com/potentiate-bio/thoughtful-outreach" data-track="cta_click" data-track-name="github_thoughtful_outreach">Get the skill</a>
+        </div>
+      </div>
+      <figure class="media">
+        <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>tools.potentiate.bio/thoughtful-outreach</span></div>
+        <video class="teaser" src="assets/thoughtful-outreach/walkthrough.mp4" poster="assets/thoughtful-outreach/walkthrough-poster.jpg"
+          muted loop playsinline preload="metadata" width="960" height="640"
+          aria-label="Walkthrough: filtering the target map by a signal, overriding a company's tier with a reason, then preselecting the shortlist. Fictional demo data."></video>
+        <figcaption>Fictional demo data</figcaption>
+      </figure>
+    </li>
+    <li class="soon">
+      <div><h2>More on the way</h2><p>New tools land here as they're released.</p></div>
+      <div class="cta"><a href="https://potentiate.beehiiv.com/subscribe?utm_source=tools.potentiate.bio&amp;utm_medium=website&amp;utm_campaign=subscribe_button" data-track="subscribe_click" data-track-name="subscribe_tools_card">Get notified</a></div>
+    </li>
   </ul>
 
   <footer>Tools by <a href="https://potentiate.bio">potentiate.bio</a> · Visits are counted with Google Analytics; lists you load into the tools never leave your browser.</footer>
@@ -83,6 +119,16 @@ footer a{color:inherit}
       click_location: area ? area.getAttribute("data-track-area") : "tools_home",
       link_text: (el.textContent || "").trim().slice(0,80), link_url: el.href || ""});
   }, true);
+  // Teaser videos: play only while on screen; stay still (with controls) for reduced-motion users.
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var vids = [].slice.call(document.querySelectorAll("video.teaser"));
+  vids.forEach(function(v){ if(reduce){ v.controls = true; v.removeAttribute("loop"); } });
+  if(reduce) return;
+  var play = function(v){ var p = v.play(); if(p && p.catch) p.catch(function(){}); };
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? play(e.target) : e.target.pause(); }); }, {threshold:0.35});
+    vids.forEach(function(v){ io.observe(v); });
+  } else { vids.forEach(play); }
 })();
 </script>
 </body>
